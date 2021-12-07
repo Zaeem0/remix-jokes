@@ -1,9 +1,21 @@
-import type { LinksFunction } from "remix";
-import { Links, LiveReload, Outlet, useCatch } from "remix";
+import { Links, LinksFunction, LiveReload, Meta, MetaFunction, Outlet, useCatch } from "remix";
 import globalLargeStylesUrl from "./styles/global-large.css";
 import globalMediumStylesUrl from "./styles/global-medium.css";
 import globalStylesUrl from "./styles/global.css";
 
+export const meta: MetaFunction = () => {
+  const description = `Learn Remix and laugh at the same time!`;
+  return {
+    description,
+    keywords: "Remix,jokes",
+    "twitter:image": "https://remix-jokes.lol/social.png",
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@remix_run",
+    "twitter:site": "@remix_run",
+    "twitter:title": "Remix Jokes",
+    "twitter:description": description
+  };
+};
 
 export const links: LinksFunction = () => {
   return [
@@ -35,6 +47,7 @@ function Document({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        <Meta />
         <title>{title}</title>
         <Links />
       </head>

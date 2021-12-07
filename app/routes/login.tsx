@@ -1,4 +1,4 @@
-import type { ActionFunction, LinksFunction } from "remix";
+import type { ActionFunction, LinksFunction, MetaFunction } from "remix";
 import { Link, useActionData, useSearchParams } from "remix";
 import { db } from "~/utils/db.server";
 import { createUserSession, login, register } from "~/utils/session.server";
@@ -96,6 +96,14 @@ export const action: ActionFunction = async ({
         }
     }
 };
+
+export const meta: MetaFunction = () => {
+    return {
+      title: "Remix Jokes | Login",
+      description:
+        "Login to submit your own jokes to Remix Jokes!"
+    };
+  };
 
 export default function Login() {
     const actionData = useActionData<ActionData | undefined>();
