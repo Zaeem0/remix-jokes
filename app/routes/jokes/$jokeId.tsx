@@ -1,6 +1,5 @@
 import type { Joke } from "@prisma/client";
-import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
-import { Link, redirect, useCatch, useLoaderData, useParams } from "remix";
+import { ActionFunction, Form, Link, LoaderFunction, MetaFunction, redirect, useCatch, useLoaderData, useParams } from "remix";
 import { db } from "~/utils/db.server";
 import { getUserId, requireUserId } from "~/utils/session.server";
 
@@ -75,7 +74,7 @@ export default function JokeRoute() {
       <p>{data.joke.content}</p>
       <Link to=".">{data.joke.name} Permalink</Link>
       {data.isOwner ? (
-        <form method="post">
+        <Form method="post">
           <input
             type="hidden"
             name="_method"
@@ -84,7 +83,7 @@ export default function JokeRoute() {
           <button type="submit" className="button">
             Delete
           </button>
-        </form>
+        </Form>
       ) : null}
     </div>
   );
