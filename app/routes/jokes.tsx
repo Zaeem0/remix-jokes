@@ -22,15 +22,15 @@ type LoaderData = {
   jokeListItems: Array<{ id: string; name: string }>;
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
-  let jokeListItems = await db.joke.findMany({
+export const loader: LoaderFunction = async ({ request }) => {
+  const jokeListItems = await db.joke.findMany({
     take: 5,
     orderBy: { createdAt: "desc" },
     select: { id: true, name: true }
   });
-  let user = await getUser(request);
+  const user = await getUser(request);
 
-  let data: LoaderData = {
+  const data: LoaderData = {
     jokeListItems,
     user
   };
@@ -38,7 +38,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function JokesRoute() {
-  let data = useLoaderData<LoaderData>();
+  const data = useLoaderData<LoaderData>();
 
   return (
     <div className="jokes-layout">
