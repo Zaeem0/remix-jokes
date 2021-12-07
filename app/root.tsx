@@ -68,7 +68,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export function CatchBoundary() {
-  let caught = useCatch();
+  const caught = useCatch();
   return (
     <Document
       title={`${caught.status} ${caught.statusText}`}

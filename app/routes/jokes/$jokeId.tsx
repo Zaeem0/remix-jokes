@@ -6,9 +6,9 @@ import { getUserId, requireUserId } from "~/utils/session.server";
 
 type LoaderData = { joke: Joke; isOwner: boolean };
 
-export let loader: LoaderFunction = async ({ request, params }) => {
-  let userId = await getUserId(request);
-  let joke = await db.joke.findUnique({
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const userId = await getUserId(request);
+  const joke = await db.joke.findUnique({
     where: { id: params.jokeId }
   });
   if (!joke) {
@@ -16,18 +16,18 @@ export let loader: LoaderFunction = async ({ request, params }) => {
       status: 404
     });
   }
-  let data: LoaderData = { joke, isOwner: userId === joke.jokesterId };
+  const data: LoaderData = { joke, isOwner: userId === joke.jokesterId };
   return data;
 };
 
-export let action: ActionFunction = async ({
+export const action: ActionFunction = async ({
   request,
   params
 }) => {
-  let form = await request.formData();
+  const form = await request.formData();
   if (form.get("_method") === "delete") {
-    let userId = await requireUserId(request);
-    let joke = await db.joke.findUnique({
+    const userId = await requireUserId(request);
+    const joke = await db.joke.findUnique({
       where: { id: params.jokeId }
     });
     if (!joke) {

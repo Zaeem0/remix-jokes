@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 const db = new PrismaClient();
 
 async function seed() {
-    let kody = await db.user.create({
+    const kody = await db.user.create({
         data: {
             username: "kody",
             // Docs:
@@ -51,7 +51,7 @@ function getJokes() {
         },
         {
             name: "Elevator",
-            content: `My first time using an elevator was an uplifting experience. The second time let me down.`
+            content: `My first time using an elevator was an uplifting experience. The second time const me down.`
         }
     ];
 }

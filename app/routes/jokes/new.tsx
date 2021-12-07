@@ -3,7 +3,7 @@ import { db } from "~/utils/db.server";
 import { getUserId, requireUserId } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  let userId = await getUserId(request);
+  const userId = await getUserId(request);
   if (!userId) {
     throw new Response("Unauthorized", { status: 401 });
   }

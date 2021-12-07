@@ -4,7 +4,7 @@ import { db } from "~/utils/db.server";
 import { createUserSession, login, register } from "~/utils/session.server";
 import stylesUrl from "../styles/login.css";
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
     return [{ rel: "stylesheet", href: stylesUrl }];
 };
 
@@ -33,14 +33,14 @@ type ActionData = {
     };
 };
 
-export let action: ActionFunction = async ({
+export const action: ActionFunction = async ({
     request
 }): Promise<Response | ActionData> => {
-    let form = await request.formData();
-    let loginType = form.get("loginType");
-    let username = form.get("username");
-    let password = form.get("password");
-    let redirectTo = form.get("redirectTo");
+    const form = await request.formData();
+    const loginType = form.get("loginType");
+    const username = form.get("username");
+    const password = form.get("password");
+    const redirectTo = form.get("redirectTo");
     if (
         typeof loginType !== "string" ||
         typeof username !== "string" ||
@@ -50,8 +50,8 @@ export let action: ActionFunction = async ({
         return { formError: `Form not submitted correctly.` };
     }
 
-    let fields = { loginType, username, password };
-    let fieldErrors = {
+    const fields = { loginType, username, password };
+    const fieldErrors = {
         username: validateUsername(username),
         password: validatePassword(password)
     };
@@ -63,7 +63,7 @@ export let action: ActionFunction = async ({
             // login to get the user
             // if there's no user, return the fields and a formError
             // if there is a user, create their session and redirect to /jokes
-            let user = await login({ username, password });
+            const user = await login({ username, password });
             if (!user) {
               return {
                 fields,
@@ -73,7 +73,7 @@ export let action: ActionFunction = async ({
             return createUserSession(user.id, redirectTo);
         }
         case "register": {
-            let userExists = await db.user.findFirst({
+            const userExists = await db.user.findFirst({
                 where: { username }
             });
             if (userExists) {
@@ -98,8 +98,8 @@ export let action: ActionFunction = async ({
 };
 
 export default function Login() {
-    let actionData = useActionData<ActionData | undefined>();
-    let [searchParams] = useSearchParams();
+    const actionData = useActionData<ActionData | undefined>();
+    const [searchParams] = useSearchParams();
     return (
         <div className="container">
             <div className="content" data-light="">
